@@ -24,13 +24,16 @@ def timer(func):
         return value
     return wrapper_timer
 
+def main():
+    math.factorial = debug(math.factorial) #применение декоратора к существующей функции
 
-math.factorial = debug(math.factorial) #применение декоратора к существующей функции
+    @timer #применение декоратора вычисления скорости подсчета функции
+    @debug #применение декоратора к созданной функции, 
+    #к функции внутри декоратор применен выше
+    def approximate_e(terms=18):
+        return sum(1 / math.factorial(n) for n in range(terms))
 
-@timer #применение декоратора вычисления скорости подсчета функции
-@debug #применение декоратора к созданной функции, 
-#к функции внутри декоратор применен выше
-def approximate_e(terms=18):
-    return sum(1 / math.factorial(n) for n in range(terms))
+    print(approximate_e(5))
 
-print(approximate_e(5))
+if __name__ == "__main__":
+    main()
